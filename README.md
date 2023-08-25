@@ -8,9 +8,8 @@
 
 The data used are extracted from : [A Dataset for In-situ synchrotron tomography experiments to investigate anisotropic damage of line pipe steel](https://zenodo.org/record/3528199#.ZHb2OoTP02w).
 
-
 <p align="center">
-[![DOI](https://zenodo.org/badge/DOI/10.5281/zenodo.3528199.svg)](https://doi.org/10.5281/zenodo.3528199)
+    <a href="https://doi.org/10.5281/zenodo.3528199"><img src="https://zenodo.org/badge/DOI/10.5281/zenodo.3528199.svg" alt="DOI"></a>
 </p>
 
 
