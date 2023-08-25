@@ -14,6 +14,8 @@ The data used are extracted from : [A Dataset for In-situ synchrotron tomography
 
 
 
-<img src="https://imagej.net/media/icons/fiji.svg" style="width=100px;"/>
 The analysis is done using the Fiji software, freely availlable here : [https://imagej.net/software/fiji/downloads](https://imagej.net/software/fiji/downloads)
 
+<p align="center">
+    <img src="https://imagej.net/media/icons/fiji.svg" style="width=100px;"/>
+</p>
