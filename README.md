@@ -25,7 +25,7 @@ During the time of the MEALOR II school, the dataset and some of the scripts use
 ## The dataset
 The data sets used for this exercise session are related to the paper "On the origin of the anisotropic damage of X100 line pipe steel, Part I: in-situ synchrotron tomography experiments" published by Madi et al. in Integrating Materials and Manufacturing Innovation. We will only use a few scans, but the complete dataset is available here:  [https://zenodo.org/record/3528199#.ZHb2OoTP02w](https://zenodo.org/record/3528199#.ZHb2OoTP02w).
 
-<img src="data_description" />
+<img src="data_description.png" />
 
 In this study, the damage evolution of a grade X100 line pipe steel were investigated using in-situ synchrotron-radiation computed tomography (SRCT) of notched round bars (see Fig., right). Three scans (scan 01, scan 06 and scan 13, see Fig. left) will be used, they have been obtained on a specimens loaded along the rolling (L) direction. 
 
