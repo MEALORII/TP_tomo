@@ -44,8 +44,6 @@ function make_z_sum(){
 	close();
 	selectWindow("tmp3");
 	close();
-	
-	selectWindow("z_sum");
 }
 
 function zsum2csv(essais, variable){
@@ -62,8 +60,7 @@ function zsum2csv(essais, variable){
 	updateResults();
 	
 	
-	saveAs("Measurements", "/tmp/tptomo_"+essais+"_"+variable+".csv");
-}
+	saveAs("Measurements", "/tmp/tptomo_"+essais+"_"+variable+".csv");}
 
 function perZsurface(essais){
 	// analyse sample surface(z)
@@ -71,7 +68,8 @@ function perZsurface(essais){
 	make_z_sum();
 	zsum2csv(essais, "surface");
 	selectWindow("z_sum");
-	rename("zsum_"+essais+"_surface");
+	//rename("zsum_"+essais+"_surface"); // uncomment to keep open, for live demo
+	close();
 }
 
 function perZporosity(essais){
@@ -80,36 +78,35 @@ function perZporosity(essais){
 	make_z_sum();
 	zsum2csv(essais, "cavites");
 	selectWindow("z_sum");
-	rename("zsum_"+essais+"_cavites");
-}
-
-function close_img(){
-	selectWindow("mask_matiere");
-	close();
-	selectWindow("mask_cavites");
-	close();
-	selectWindow("mask_ech");
+	//rename("zsum_"+essais+"_cavites"); // uncomment to keep open, for live demo
 	close();
 }
 
-function analyse3d(){
+function analyse3d(essais){
 	selectImage("mask_cavites");
+	// run the 3DManager from the GUI, and use the macro recorder to define your needed options
+	run("3D Manager Options", "volume 3d_moments centroid_(pix) centre_of_mass_(pix) bounding_box distance_between_centers=10 distance_max_contact=1.80 drawing=Contour");
 	run("3D Manager");
 	Ext.Manager3D_Segment(128, 255);
 	Ext.Manager3D_AddImage();
 	Ext.Manager3D_SelectAll();
 	Ext.Manager3D_Measure();
+	
+	Ext.Manager3D_SaveResult("M","/tmp/tptomo_"+essais+"_cavites_3danalysis.csv");
+	Ext.Manager3D_CloseResult("M");
+	
+	selectImage("mask_cavites-3Dseg");
 	close();
-	print("Manualy save the table as a csv file somewhere.");
-
+	Ext.Manager3D_Close();
 }
 
 
 
 // choose the step you want to analyse
+// of course, a loop on the scans can be made
 essais="01";
-essais="06";
-essais="13";
+//essais="06";
+//essais="13";
 
 // path to the .tif file
 open("/home/clebourlot/Documents/docs-MATEIS/01_Projet/MEALORII/TP/TD_MEALOR_tomo/SCANS INIT/NT4_L_Step_"+essais+".tif");
@@ -122,6 +119,8 @@ perZsurface(essais);  // on the sample mask
 perZporosity(essais); // on the porosity mask
 
 
+// close the image windows, to save space and prevent crash
+
 selectWindow("input_image");
 close();
 selectWindow("mask_matiere");
@@ -129,13 +128,21 @@ close();
 selectWindow("mask_ech");
 close();
 
-analyse3d();
+// the analysis 3D can be highly memory consuming
+analyse3d(essais);
 
 
 selectImage("mask_cavites");
 close();
-
-// close the image windows, to save space and prevent crash
-//close_img();
-//selectWindow("input_image");
-//close();
+if (isOpen("Log")) {
+     selectWindow("Log");
+     run("Close" );
+}
+if (isOpen("Console")) {
+     selectWindow("Console");
+     run("Close" );
+}
+if (isOpen("Results")) {
+     selectWindow("Results");
+     run("Close" );
+}
