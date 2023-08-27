@@ -92,17 +92,50 @@ function close_img(){
 	close();
 }
 
+function analyse3d(){
+	selectImage("mask_cavites");
+	run("3D Manager");
+	Ext.Manager3D_Segment(128, 255);
+	Ext.Manager3D_AddImage();
+	Ext.Manager3D_SelectAll();
+	Ext.Manager3D_Measure();
+	close();
+	print("Manualy save the table as a csv file somewhere.");
+
+}
 
 
+
+// choose the step you want to analyse
 essais="01";
 essais="06";
-//essais="13";
+essais="13";
 
+// path to the .tif file
 open("/home/clebourlot/Documents/docs-MATEIS/01_Projet/MEALORII/TP/TD_MEALOR_tomo/SCANS INIT/NT4_L_Step_"+essais+".tif");
 rename("input_image");
+// segmentation and preparation of the different masks
 segmentation(120);
-perZsurface(essais);
-perZporosity(essais);
-close_img();
+
+// analyse per slice
+perZsurface(essais);  // on the sample mask
+perZporosity(essais); // on the porosity mask
+
+
 selectWindow("input_image");
 close();
+selectWindow("mask_matiere");
+close();
+selectWindow("mask_ech");
+close();
+
+analyse3d();
+
+
+selectImage("mask_cavites");
+close();
+
+// close the image windows, to save space and prevent crash
+//close_img();
+//selectWindow("input_image");
+//close();
